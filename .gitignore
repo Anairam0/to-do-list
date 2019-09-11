@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/TodoList/config
+/.vs/TodoList/DesignTimeBuild
+/.vs/TodoList/v16
+/TodoList/obj
+/TodoListTest/obj
+/WebApplication1/bin/Debug/netcoreapp2.2
+/WebApplication1/obj

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "WebApplication1\Server.csproj", "{18BB6940-4B7E-487F-BAE6-7182D82E417A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListTest", "TodoListTest\TodoListTest.csproj", "{610608AC-8E35-4705-ADFD-B96AD7F5A50B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18BB6940-4B7E-487F-BAE6-7182D82E417A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18BB6940-4B7E-487F-BAE6-7182D82E417A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18BB6940-4B7E-487F-BAE6-7182D82E417A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18BB6940-4B7E-487F-BAE6-7182D82E417A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610608AC-8E35-4705-ADFD-B96AD7F5A50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610608AC-8E35-4705-ADFD-B96AD7F5A50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610608AC-8E35-4705-ADFD-B96AD7F5A50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610608AC-8E35-4705-ADFD-B96AD7F5A50B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AC072D3-BCDE-4043-8471-CF88C8C790CD}
+	EndGlobalSection
+EndGlobal
