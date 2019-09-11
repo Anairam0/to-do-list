@@ -42,18 +42,18 @@ namespace Server.Repository
             }
         }
 
-        public int Add(TodoListItem item)
+        public TodoListItem Add(TodoListItem item)
         {
             if (item == null || item.Id <= 0)
             {
                 items.Add(item);
 
-                return item.Id;
+                return item;
             }
-            return 0;
+            return null;
         }
 
-        public int Update(TodoListItem item)
+        public TodoListItem Update(TodoListItem item)
         {
             if (item == null || item.Id <= 0)
             {
@@ -61,11 +61,11 @@ namespace Server.Repository
 
                 items[index] = item;
 
-                return item.Id;
+                return items[index];
             }
             else
             {
-                return 0;
+                return null;
             }
         }
 
