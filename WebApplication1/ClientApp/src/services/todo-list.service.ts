@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TodoListItem } from '../app/todo-list/models/todo-list.model';
 import { environment } from './../environments/environment';
+import { ApiResponse } from 'src/entities/ApiResponse.entity';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,18 @@ export class TodoListService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get(this.rootURL);
+    return this.http.get<ApiResponse<Array<TodoListItem>>>(this.rootURL);
   }
 
   getById(id: string) {
     return this.http.get(this.rootURL + id);
   }
 
-  Create(item: TodoListItem) {
-    return this.http.post(this.rootURL, item);
+  Create(item) {
+    var body = item.value;
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http.post(this.rootURL, body, { headers: headers });
   }
 
   Edit(item: TodoListItem) {

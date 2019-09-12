@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TodoListService } from 'src/services/todo-list.service';
 import { debug } from 'util';
 import { TodoListItem } from './models/todo-list.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificacionService } from 'src/services/notificacion.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,14 +11,15 @@ import { TodoListItem } from './models/todo-list.model';
 })
 export class ToDoListComponent implements OnInit {
   title = 'Todo List';
-
   items: Array<TodoListItem> = [];
+  public newTodoForm = new FormGroup({
+    Description: new FormControl("", [Validators.required])
+  });
 
-  constructor(private todoService: TodoListService){
+  constructor(private todoService: TodoListService, private notificationService: NotificacionService){
   }
 
   ngOnInit(){
-    debugger;
     this.getAllTodo();
   }
 
@@ -28,7 +31,20 @@ export class ToDoListComponent implements OnInit {
       }, err =>
       {
         debugger;
-        this.items = [];
+        this.notificationService.showNotification("Error", err.message);
+      }
+    );
+  }
+
+  addTodoTask() {
+    debugger;
+    this.todoService.Create(this.newTodoForm).subscribe(
+      resp => {
+        debugger;
+        this.getAllTodo();
+      }, err => {
+        debugger;
+        this.notificationService.showNotification("Error", err.message);
       }
     );
   }

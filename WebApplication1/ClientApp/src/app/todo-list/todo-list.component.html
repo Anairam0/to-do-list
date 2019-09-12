@@ -2,42 +2,40 @@
     <!-- Highlight Card -->
     <div class="container">
         <div>
-            
             <div class="container">
-                    <div class="row">
-                            <div class="col-sm">
-                                    <h5 class="card-title">TO-DO LIST </h5>
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <input type="text" class="form-control" id="NEW-TODO" aria-describedby="basic-addon3">
-                        </div>
-                        <div class="col-sm">
-                            <button type="button" class="btn btn-primary">Add</button>
-                        </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="card-title">TO-DO LIST</h5>
                     </div>
                 </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">State</th>
-                        <th colspan="2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items"> 
-                        <td scope="col">{{item.Description}}</td>
-                        <td scope="col">{{item.State}}</td>
-                        <td><button type="button" class="btn btn-info">Update</button></td>
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
-                    </tr>
-                    
-                </tbody>
-            </table>
+                <div class="row" [formGroup]="newTodoForm">
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="NEW-TODO" aria-describedby="basic-addon3" formControlName="Description">
+                    </div>
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-primary"  (click)="addTodoTask()">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">State</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of items">
+                            <td scope="col">{{item.Description}}</td>
+                            <td scope="col">{{item.State}}</td>
+                            <td><button type="button" class="btn btn-info">Update</button></td>
+                            <td><button type="button" class="btn btn-danger">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-       
     </div>
 </div>
