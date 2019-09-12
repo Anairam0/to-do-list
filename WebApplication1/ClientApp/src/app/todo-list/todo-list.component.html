@@ -13,7 +13,7 @@
                         <input type="text" class="form-control" id="NEW-TODO" aria-describedby="basic-addon3" formControlName="Description">
                     </div>
                     <div class="col-1">
-                        <button type="submit" class="btn btn-primary"  (click)="addTodoTask()">Add</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="newTodoForm.invalid" (click)="addTodoTask()">Add</button>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of items">
-                            <td scope="col">{{item.description}}</td>
+                            <td scope="col">
+                                <edit-task [item]="item"></edit-task>
+                            </td>
                             <td scope="col">{{item.status ? "Completed" : "Active"}}</td>
                             <td>
                                 <button type="button" class="btn btn-info" (click)="CompleteTask(item)">{{ item.status ? "Activate" : "Complete" }}</button>

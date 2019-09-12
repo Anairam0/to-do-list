@@ -1,0 +1,9 @@
+<div>
+    <div *ngIf="!isEditing" (dblclick)="setEditMode()">
+        {{item?.description}}
+    </div>
+    <div *ngIf="isEditing" class="row" [formGroup]="editTodoForm">
+        <input type="text" formControlName="Description">
+        <button type="submit" class="btn btn-primary" [disabled]="editTodoForm.invalid" (click)="editTodoTask()">Save</button>
+    </div>
+</div>

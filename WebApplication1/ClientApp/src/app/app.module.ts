@@ -9,11 +9,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule, MatSnackBarModule } from '@angular/material'
 import { NotificacionService } from 'src/services/notificacion.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditTaskComponent } from './todo-list/Components/edit-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    EditTaskComponent
   ],
   imports: [
     BrowserModule,

@@ -37,6 +37,9 @@ export class ToDoListComponent implements OnInit {
   addTodoTask() {
     this.todoService.Create(this.newTodoForm).subscribe(
       resp => {
+        this.newTodoForm.setValue({
+          Description: ""
+        });
         this.getAllTodo();
       }, err => {
         this.notificationService.showNotification("Error", err.statusText);
