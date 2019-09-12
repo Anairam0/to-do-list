@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
-using Server.Repository;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -12,42 +10,85 @@ namespace Server.Controllers
     [ApiController]
     public class TodoListController : ControllerBase
     {
-        ITodoListRepository todoListRepository;
-        public TodoListController(ITodoListRepository todoListRepository)
+        ITodoListService _todoListService;
+
+        public TodoListController(ITodoListService todoListService)
         {
-            this.todoListRepository = todoListRepository;
+            _todoListService = todoListService;
         }
 
         [HttpGet]
-        public ActionResult<IList<TodoListItem>> GetAll()
+        public ActionResult<ApiResult<IList<TodoListItem>>> GetAll()
         {
-            return todoListRepository.GetAll();
+            var result = new ApiResult<IList<TodoListItem>>();
+
+            result.Data = _todoListService.GetAll();
+            result.Message = "Todo List";
+
+            return result;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TodoListItem> GetById(int id)
+        public ActionResult<ApiResult<TodoListItem>> GetById(Guid id)
         {
-            return todoListRepository.Get(id);
+            var result = new ApiResult<TodoListItem>();
+
+            result.Data = _todoListService.Get(id);
+            if(result.Data == null)
+            {
+                result.Message = "No Todo find with that Id";
+                return NoContent();
+            }
+
+            result.Message = "Todo Info";
+
+            return result;
         }
 
         [HttpPost]
-        public void CreateItem([FromBody] TodoListItem item)
+        public IActionResult CreateItem([FromBody] TodoListItem item)
         {
-            todoListRepository.Add(item);
+            var result = new ApiResult<TodoListItem>();
+
+            var createdItem = _todoListService.Add(item);
+
+            if (createdItem == null)
+            {
+                result.Message = "Bad Request";
+                return BadRequest(result);
+            }
+
+            result.Message = "Task Created Successfully";
+            result.Data = createdItem;
+
+            return Ok(result);
         }
         
         [HttpPut("{id}")]
-        public IActionResult EditItem(int id, [FromBody] TodoListItem item)
+        public IActionResult EditItem(Guid id, [FromBody] TodoListItem item)
         {
-            todoListRepository.Update(item);
+            var result = new ApiResult<TodoListItem>();
+
+            var updatedItem = _todoListService.Update(item);
+            
+            if(updatedItem == null)
+            {
+                result.Message = "Task not Found";
+                return NotFound(result);
+            }
+
+            result.Message = "Task Edited Successfully";
+            result.Data = updatedItem;
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteItem(int id)
+        public IActionResult DeleteItem(Guid id)
         {
             var result = new ApiResult<int>();
 
-            if(todoListRepository.Delete(id) <= 0)
+            if(_todoListService.Delete(id) == null)
             {
                 result.Message = "Task not Found";
                 return NotFound(result);
@@ -58,19 +99,17 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id}/Complete")]
-        public IActionResult CompleteItem(int id)
+        public IActionResult CompleteItem(Guid id)
         {
             var result = new ApiResult<TodoListItem>();
 
-            TodoListItem itemToComplete = todoListRepository.Get(id);
-            if(itemToComplete == null)
+            TodoListItem itemToComplete = _todoListService.CompleteTask(id);
+
+            if (itemToComplete == null)
             {
                 result.Message = "Task not Found";
                 return NotFound(result);
             }
-
-            itemToComplete.Status = !itemToComplete.Status;
-            todoListRepository.Update(itemToComplete);
 
             result.Message = "Task Edited Successfully";
             result.Data = itemToComplete;

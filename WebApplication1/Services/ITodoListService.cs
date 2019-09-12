@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Server.Repository
+namespace Server.Services
 {
-    public interface ITodoListRepository
+    public interface ITodoListService
     {
         TodoListItem Get(Guid id);
 
@@ -15,5 +15,7 @@ namespace Server.Repository
         TodoListItem Add(TodoListItem item);
 
         TodoListItem Update(TodoListItem item);
+
+        TodoListItem CompleteTask(Guid id);
     }
 }

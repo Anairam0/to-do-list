@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Server.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Server.Repository
 {
@@ -9,9 +9,9 @@ namespace Server.Repository
     {
         private readonly IList<TodoListItem> items = new List<TodoListItem>();
 
-        public TodoListItem Get(int id)
+        public TodoListItem Get(Guid id)
         {
-            if (id > 0)
+            if (id != Guid.Empty)
             {
                 return items.SingleOrDefault(e => e.Id == id);
             }
@@ -26,9 +26,9 @@ namespace Server.Repository
             return items.ToList();
         }
 
-        public int Delete(int id)
+        public Guid Delete(Guid id)
         {
-            if (id > 0)
+            if (id != Guid.Empty)
             {
                 var item = items.SingleOrDefault(e => e.Id == id);
 
@@ -38,13 +38,13 @@ namespace Server.Repository
             }
             else
             {
-                return 0;
+                return Guid.Empty;
             }
         }
 
         public TodoListItem Add(TodoListItem item)
         {
-            if (item == null || item.Id <= 0)
+            if (item == null || item.Id != Guid.Empty)
             {
                 items.Add(item);
 
@@ -55,7 +55,7 @@ namespace Server.Repository
 
         public TodoListItem Update(TodoListItem item)
         {
-            if (item == null || item.Id <= 0)
+            if (item == null || item.Id != Guid.Empty)
             {
                 var index = items.IndexOf(items.SingleOrDefault(e => e.Id == item.Id));
 
@@ -68,13 +68,5 @@ namespace Server.Repository
                 return null;
             }
         }
-
-        //public int UpdateStatus(TodoListItem item)
-        //{
-        //    var index = items.IndexOf(items.SingleOrDefault(e => e.Id == item.Id));
-        //    items[index].Status = !item.Status;
-
-        //    return item.Id;
-        //}
     }
 }
