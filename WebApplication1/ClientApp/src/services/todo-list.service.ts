@@ -31,7 +31,7 @@ export class TodoListService {
   }
 
   Edit(item: TodoListItem) {
-    return this.http.put(this.rootURL + item.Id, item);
+    return this.http.put<ApiResponse<TodoListItem>>(this.rootURL + item.id, item);
   }
 
   Delete(id: string) {
@@ -39,7 +39,7 @@ export class TodoListService {
   }
 
   Complete(id: string) {
-    return this.http.put(this.rootURL + id + '/Complete', {});
+    return this.http.put<ApiResponse<TodoListItem>>(this.rootURL + id + '/Complete', {});
   }
 
   /*refresh() {

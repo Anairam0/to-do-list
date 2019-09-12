@@ -26,26 +26,44 @@ export class ToDoListComponent implements OnInit {
   getAllTodo(){
     this.todoService.getAll().subscribe( 
       resp => {
-        debugger;
         this.items = resp.data;
       }, err =>
       {
-        debugger;
-        this.notificationService.showNotification("Error", err.message);
+        this.notificationService.showNotification("Error", err.statusText);
       }
     );
   }
 
   addTodoTask() {
-    debugger;
     this.todoService.Create(this.newTodoForm).subscribe(
       resp => {
-        debugger;
         this.getAllTodo();
       }, err => {
-        debugger;
-        this.notificationService.showNotification("Error", err.message);
+        this.notificationService.showNotification("Error", err.statusText);
       }
     );
   }
+
+  CompleteTask(item: TodoListItem){
+    this.todoService.Complete(item.id).subscribe(
+      resp => {
+        this.getAllTodo();
+      },
+      err => {
+        this.notificationService.showNotification("Error", err.statusText);
+      }
+    )
+  }
+
+  DeleteTask(item: TodoListItem){
+    this.todoService.Delete(item.id).subscribe(
+      resp => {
+        this.getAllTodo();
+      },
+      err => {
+        this.notificationService.showNotification("Error", err.statusText);
+      }
+    )
+  }
+
 }
